@@ -11,6 +11,7 @@ def count_vowels_consonants(tekst):
 
     return output
 
+
 tekst = "Python je programski jezik koji je jednostavan za učenje i korištenje. Python je vrlo popularan."
 
 print(count_vowels_consonants(tekst))
