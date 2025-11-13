@@ -3,6 +3,8 @@ Koristeći list comprehension, izgradite listu rječnika gdje su ključevi prezi
 zbrojeni bodovi, iz liste studenti:
 """
 
+from functools import reduce
+
 studenti = [
     {"ime": "Ivan", "prezime": "Ivić", "bodovi": [12, 23, 53, 64]},
     {"ime": "Marko", "prezime": "Marković", "bodovi": [33, 15, 34, 45]},
@@ -12,7 +14,9 @@ studenti = [
     {"ime": "Mate", "prezime": "Matić", "bodovi": [75, 34, 56, 78, 23]}
 ]
 
-zbrojeni_bodovi = ...
+zbroji_bodove = lambda bodovi : reduce(lambda x, y : x + y, bodovi) # TODO: ko bude lazno 1 refaktor
+
+zbrojeni_bodovi = [(student["prezime"], zbroji_bodove(student["bodovi"])) for student in studenti]
 
 print(zbrojeni_bodovi)  # [{'Ivić': 152}, {'Marković': 127}, {'Anić': 55}, \
                         #  {'Petrić': 362}, {'Ivić': 236}, {'Matić': 266}]
