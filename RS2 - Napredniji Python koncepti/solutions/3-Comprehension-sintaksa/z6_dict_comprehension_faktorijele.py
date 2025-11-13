@@ -5,7 +5,9 @@ a vrijednosti su liste faktorijela tih brojeva.
 
 import math
 
-faktorijeli = ...
+generiraj_polje_faktorijela = lambda x : [math.factorial(faktorijela) for faktorijela in range(1, x + 1)]
+
+faktorijeli = {broj: generiraj_polje_faktorijela(broj) for broj in range(1, 11)}
 
 print(faktorijeli)
 
