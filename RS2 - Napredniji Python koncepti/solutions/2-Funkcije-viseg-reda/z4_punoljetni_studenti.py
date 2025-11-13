@@ -1,5 +1,6 @@
 """
 Koristeći funkcije all i map, provjerite jesu li svi studenti punoljetni:
+"""
 
 studenti = [
     {"ime": "Ivan", "prezime": "Ivić", "godine": 19},
@@ -10,8 +11,6 @@ studenti = [
     {"ime": "Mate", "prezime": "Matić", "godine": 18}
 ]
 
-svi_punoljetni = ...
+svi_punoljetni = all(map(lambda student : student["godine"] >= 18, studenti))
 
 print(svi_punoljetni) # False
-"""
-
