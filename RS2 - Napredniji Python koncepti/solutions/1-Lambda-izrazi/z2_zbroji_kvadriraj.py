@@ -1,5 +1,6 @@
 """
 Napiši lambda fukciju:
+
 def zbroji_pa_kvadriraj(a, b):
     return (a + b) ** 2
 """

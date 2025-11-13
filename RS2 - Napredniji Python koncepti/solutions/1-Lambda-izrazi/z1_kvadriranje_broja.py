@@ -1,5 +1,6 @@
 """
 Napiši lambda fukciju:
+
 def kvadriraj(x):
     return x ** 2
 """
