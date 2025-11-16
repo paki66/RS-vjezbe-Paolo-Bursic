@@ -12,6 +12,8 @@ Na kraju, koristeći asyncio.gather(), pokrenite sve korutine konkurentno i ispi
 import asyncio, random
 
 async def provjeri_parnost():
+    await asyncio.sleep(2)
+
     paran, broj = False, 1
 
     if paran:
