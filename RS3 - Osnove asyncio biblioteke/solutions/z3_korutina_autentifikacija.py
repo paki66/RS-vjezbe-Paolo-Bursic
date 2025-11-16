@@ -51,13 +51,33 @@ nepostojeci_korisnik = {
 import asyncio
 
 async def authenticate(korisnik):
-    pass
+    kljucevi_provjere = {"korisnicko_ime", "email"}
+    podaci_provjere = {pod : korisnik[pod] for pod in kljucevi_provjere}
+    if podaci_provjere not in baza_korisnika:
+        return None
+
+    return korisnik["lozinka"]
 
 
-async def authorize():
-    pass
+async def authorize(lozinka):
+    return True
 
-asyncio.run(authenticate(autorizirani_korisnik))
-# asyncio.run(authenticate(krivi_unos_lozinke))
-# asyncio.run(authenticate(nepostojeci_korisnik))
 
+async def main(korisnik):
+    korisnicko_ime = korisnik['korisnicko_ime']
+    lozinka = await authenticate(korisnik)
+
+    if not lozinka:
+        return print(f"Korisnik {korisnicko_ime} nije pronađen.")
+
+    authorized = await authorize(lozinka)
+
+    if not authorized:
+        return print(f"Korisnik {korisnicko_ime}: Autorizacija neuspješna.")
+
+    return print(f"Korisnik {korisnicko_ime}: Autorizacija uspješna.")
+
+
+asyncio.run(main(autorizirani_korisnik))  # Korisnik mirko123: Autorizacija uspješna.
+asyncio.run(main(krivi_unos_lozinke))  # Korisnik maja_0x: Autorizacija neuspješna.
+asyncio.run(main(nepostojeci_korisnik))  # Korisnik ana_anic nije pronađen.
