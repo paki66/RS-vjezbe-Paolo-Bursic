@@ -53,7 +53,9 @@ import asyncio
 async def authenticate(korisnik):
     kljucevi_provjere = {"korisnicko_ime", "email"}
     podaci_provjere = {pod : korisnik[pod] for pod in kljucevi_provjere}
+
     await asyncio.sleep(3)
+
     if podaci_provjere not in baza_korisnika:
         return None
 
