@@ -12,6 +12,7 @@ Na kraju, koristeći asyncio.gather(), pokrenite sve korutine konkurentno i ispi
 import asyncio, random
 
 async def provjeri_parnost(broj):
+    print(f"API pozvan s {broj}")
     await asyncio.sleep(2)
 
     if broj % 2 == 0:
@@ -21,7 +22,9 @@ async def provjeri_parnost(broj):
 
 
 async def main():
-    pass
+    lista = [random.choice(range(1, 101)) for _ in range(10)]
+    zadaci = [asyncio.create_task(provjeri_parnost(broj)) for broj in lista]
+    return await asyncio.gather(*zadaci)
 
 
 asyncio.run(main())
