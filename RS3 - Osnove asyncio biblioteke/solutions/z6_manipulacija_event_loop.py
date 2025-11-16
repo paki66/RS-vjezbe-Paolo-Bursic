@@ -39,7 +39,7 @@ async def fetch_data(param):
 async def main():
     task1 = asyncio.create_task(fetch_data(1)) # schedule
     task2 = asyncio.create_task(fetch_data(2)) #schedule
-
+    await asyncio.sleep(3)
     result1 = await task1
     print("Fetch 1 uspješno završen.")
     return [result1]
