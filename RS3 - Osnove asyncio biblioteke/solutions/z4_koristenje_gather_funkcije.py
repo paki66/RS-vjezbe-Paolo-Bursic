@@ -11,12 +11,10 @@ Na kraju, koristeći asyncio.gather(), pokrenite sve korutine konkurentno i ispi
 
 import asyncio, random
 
-async def provjeri_parnost():
+async def provjeri_parnost(broj):
     await asyncio.sleep(2)
 
-    paran, broj = False, 1
-
-    if paran:
+    if broj % 2 == 0:
         return print(f"Broj {broj} je paran.")
 
     return print(f"Broj {broj} nije paran.")
@@ -27,4 +25,3 @@ async def main():
 
 
 asyncio.run(main())
-asyncio.run(provjeri_parnost())  # TODO testing
