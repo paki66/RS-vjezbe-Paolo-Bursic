@@ -16,8 +16,8 @@ async def provjeri_parnost():
 
     if paran:
         return print(f"Broj {broj} je paran.")
-    else:
-        return print(f"Broj {broj} nije paran.")
+
+    return print(f"Broj {broj} nije paran.")
 
 
 async def main():
