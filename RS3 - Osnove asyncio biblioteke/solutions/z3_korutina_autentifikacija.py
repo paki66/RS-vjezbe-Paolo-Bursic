@@ -49,6 +49,7 @@ nepostojeci_korisnik = {
 }
 
 import asyncio
+import time
 
 async def authenticate(korisnik):
     kljucevi_provjere = {"korisnicko_ime", "email"}
@@ -57,30 +58,44 @@ async def authenticate(korisnik):
     await asyncio.sleep(3)
 
     if podaci_provjere not in baza_korisnika:
-        return None
+        return podaci_provjere, None
 
-    return korisnik["lozinka"]
+    return podaci_provjere, korisnik["lozinka"]
 
 
-async def authorize(lozinka):  # TODO stavi zakasnjenje 2 sec
-    return True
+async def authorize(provjereni_podaci, lozinka):
+    korisnicko_ime = provjereni_podaci['korisnicko_ime']
+    podaci_provjere = {"korisnicko_ime": korisnicko_ime, "lozinka": lozinka}
+
+    await asyncio.sleep(2)
+
+    if podaci_provjere not in baza_lozinka:
+        return "neuspješna"
+
+    return "uspješna"
 
 
 async def main(korisnik):
     korisnicko_ime = korisnik['korisnicko_ime']
-    lozinka = await authenticate(korisnik)
+    provjereni_podaci, lozinka = await authenticate(korisnik)
 
-    if not lozinka:
+    if not lozinka or not provjereni_podaci:
         return print(f"Korisnik {korisnicko_ime} nije pronađen.")
 
-    authorized = await authorize(lozinka)
+    authorized = await authorize(provjereni_podaci, lozinka)
 
-    if not authorized:
-        return print(f"Korisnik {korisnicko_ime}: Autorizacija neuspješna.")
-
-    return print(f"Korisnik {korisnicko_ime}: Autorizacija uspješna.")
+    return print(f"Korisnik {korisnicko_ime}: Autorizacija {authorized}.")
 
 
+t1 = time.perf_counter()
 asyncio.run(main(autorizirani_korisnik))  # Korisnik mirko123: Autorizacija uspješna.
+t2 = time.perf_counter()
 asyncio.run(main(krivi_unos_lozinke))  # Korisnik maja_0x: Autorizacija neuspješna.
+t3 = time.perf_counter()
 asyncio.run(main(nepostojeci_korisnik))  # Korisnik ana_anic nije pronađen.
+t4 = time.perf_counter()
+
+print(f"Vrijeme izvođenja 1. zahtjeva: {t2 - t1:.2f} sekunde")
+print(f"Vrijeme izvođenja 2. zahtjeva: {t3 - t2:.2f} sekunde")
+print(f"Vrijeme izvođenja 3. zahtjeva: {t4 - t3:.2f} sekunde")
+print(f"Ukupno vrijeme izvođenja {t4 - t1:.2f} sekunde")
