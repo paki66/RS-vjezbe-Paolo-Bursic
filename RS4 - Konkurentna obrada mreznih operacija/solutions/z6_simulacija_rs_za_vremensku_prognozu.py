@@ -15,7 +15,6 @@ Ako hoćete, možete određene dijelove koda rasporediti u zasebne datoteke (mod
 """
 import asyncio
 import random
-from asyncio import timeout
 
 locations = ["Zagreb", "Split", "Pula", "Rijeka", "Osijek", "Vinkovci", "Pazin", "Dubrovnik", "Zadar", "Šibenik"]
 
