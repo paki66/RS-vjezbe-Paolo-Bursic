@@ -62,6 +62,7 @@ async def main():
     print(cat_facts)
 
     result = await mix_facts(dog_facts, cat_facts)
-    print(result)
+    for r in result:
+        print(r)
 
 asyncio.run(main())
