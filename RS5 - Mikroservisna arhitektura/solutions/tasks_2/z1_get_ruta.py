@@ -8,21 +8,28 @@ from aiohttp import web
 
 app = web.Application()
 
+products = [
+    {
+        "naziv": "mlijeko",
+        "cijena": 1.5,
+        "kolicina": 12
+    },
+    {
+        "naziv": "kruh",
+        "cijena": 1.5,
+        "kolicina": 3
+    }
+]
+
 async def get_products(request):
-    products = [
-        {
-            "naziv": "mlijeko",
-            "cijena": 1.5,
-            "kolicina": 12
-        },
-        {
-            "naziv": "kruh",
-            "cijena": 1.5,
-            "kolicina": 3
-        }
-    ]
+    return web.json_response(products)
+
+async def add_product(request):
+    data = await request.json()
+    products.append(data)
     return web.json_response(products)
 
 app.router.add_get("/proizvodi", get_products)
+app.router.add_post("/proizvodi", add_product)
 
 web.run_app(app, host="localhost", port=8081)
