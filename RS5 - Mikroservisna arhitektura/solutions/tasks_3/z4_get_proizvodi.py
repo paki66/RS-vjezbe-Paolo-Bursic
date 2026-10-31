@@ -18,6 +18,8 @@ proizvodi = [
   {"id": 5, "naziv": "Slušalice", "cijena": 50}
 ]
 
+orders = []
+
 async def get_products(request):
     return web.json_response(proizvodi)
 
@@ -29,6 +31,14 @@ async def get_product(request):
             return web.json_response(product, status=200)
     return web.json_response({'error': 'No such product'}, status=404)
 
+async def create_order(request):
+    order = await request.json()
+    for product in proizvodi:
+        if product["id"] == int(order["proizvod_id"]):
+            order["product"] = product
+            orders.append(order)
+            return web.json_response(orders, status=200)
+    return web.json_response({'error': 'No such product'}, status=404)
 
 async def process_messages():
     async with ClientSession() as session:
@@ -41,10 +51,13 @@ async def process_messages():
         print(product_2_dict)
 
 
+
+
 async def start_server():
     app = web.Application()
     app.router.add_get("/proizvodi/{id}", get_product)
     app.router.add_get("/proizvodi", get_products)
+    app.router.add_post("/narudzbe", create_order)
 
     runner = web.AppRunner(app)
     await runner.setup()
