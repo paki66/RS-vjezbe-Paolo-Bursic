@@ -33,7 +33,7 @@ def get_movie(id: int):
     return checked_movie
 
 
-@app.post("/filmovi")
+@app.post("/filmovi", response_model=Film)
 def post_filmovi(film: CreateFilm):
     new_id = len(filmovi) + 1
     film_s_id = Film(id = new_id, **film.model_dump())
