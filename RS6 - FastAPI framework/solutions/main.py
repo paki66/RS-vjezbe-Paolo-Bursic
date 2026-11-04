@@ -39,3 +39,10 @@ def post_filmovi(film: CreateFilm):
     film_s_id = Film(id = new_id, **film.model_dump())
     filmovi.append(film_s_id.model_dump())
     return film_s_id
+
+@app.get("/filmovi/")
+def get_movies(genre: str = None, min_godina: int = 2000):
+    checked_movies = list(filter(lambda film: film["godina"] >= min_godina, filmovi))
+    if genre:
+        return list(filter(lambda film: film["genre"] == genre, checked_movies))
+    return checked_movies
