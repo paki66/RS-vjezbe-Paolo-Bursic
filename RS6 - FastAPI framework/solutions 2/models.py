@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, TypedDict
 
 from pydantic import BaseModel
 
@@ -25,3 +25,21 @@ class Admin(BaseModel):
     korisnicko_ime: str
     email: str
     ovlasti: Literal['dodavanje', 'brisanje', 'azuriranje', 'citanje'] = []
+
+
+class RestaurantOrder():
+    id: int
+    ime_kupca: str
+    stol_info: Stol_info
+    lista_jela: list[Jelo]
+    ukupna_cijene: float
+
+class Jelo(BaseModel):
+    id: int
+    naziv: str
+    cijena: float
+
+
+class Stol_info(TypedDict):
+    broj: int
+    location: str
