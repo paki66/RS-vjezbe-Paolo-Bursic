@@ -43,3 +43,9 @@ class Jelo(BaseModel):
 class Stol_info(TypedDict):
     broj: int
     location: str
+
+
+class CCTV_frame(BaseModel):
+    id: int
+    vrijeme_snimanja: datetime
+    koordinate: tuple[float, float] = [0.0, 0.0]
