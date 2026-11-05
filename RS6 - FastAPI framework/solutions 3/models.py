@@ -1,10 +1,17 @@
 from pydantic import BaseModel
 
 
-class Automobil(BaseModel):
-    id: str
+class BaseAutomobil(BaseModel):
     marka: str
     model: str
     godina_proizvodnje: int
-    cijena: float
     boja: str
+
+
+class AutomobilRequest(BaseAutomobil):
+    cijena: float
+
+
+class AutomobilResponse(BaseAutomobil):
+    id: int
+    cijena_pdv: float
